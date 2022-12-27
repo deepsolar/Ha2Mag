@@ -29,7 +29,7 @@ python test.py --dataroot ./dataset --name Ha2Mag_pix2pix --model pix2pix
 ```
 See `opt` in files(base_options.py and test_options.py) for additional testing options.
 
-Testing results are saved in `./results/` and a html file here: `./results/Ha2Mag_pix2pix/latest_test/index.html`.
+Testing results are saved in `./results/`.
 
 ## Acknowledgments
 Code borrows heavily from [pytorch-CycleGAN-and-pix2pix](https://github.com/junyanz/pytorch-CycleGAN-and-pix2pix)

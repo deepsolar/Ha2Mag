@@ -25,3 +25,4 @@ Testing results are saved in `./result/`.
 
 ## Acknowledgments
 Code borrows heavily from [pytorch-CycleGAN-and-pix2pix](https://github.com/junyanz/pytorch-CycleGAN-and-pix2pix)
+# Ha2Mag

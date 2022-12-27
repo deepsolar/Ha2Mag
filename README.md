@@ -10,7 +10,8 @@ Install [PyTorch](http://pytorch.org) and 0.4+ and other dependencies (e.g., tor
   - For pip users, please type the command `pip install -r requirements.txt`.
 
 ## Dataset
-The data we used in the paper is in `./dataset`. Our 2048 x 1024 images in our dataset are pairs of H\alpha images and SDO/HMI magnetograms.
+The data we used in the paper is in `./dataset`. 
+The 2048 x 1024 images in our dataset are pairs of H$$\alpha$$ images and SDO/HMI magnetograms. The dataset mode is aligned.
 
 ## Train
 You can train a model as the following instruction: 

@@ -6,7 +6,7 @@
 - CPU or NVIDIA GPU + CUDA CuDNN
 
 ## Installation
-Install [PyTorch](http://pytorch.org) and 0.4+ and other dependencies (e.g., torchvision, [visdom](https://github.com/facebookresearch/visdom) and [dominate](https://github.com/Knio/dominate)).
+Install [PyTorch](http://pytorch.org) and torchvision.
   - For pip users, please type the command `pip install -r requirements.txt`.
 
 ## Dataset

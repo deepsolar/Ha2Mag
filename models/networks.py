@@ -15,21 +15,13 @@ class Identity(nn.Module):
         return x
 
 
-def get_norm_layer(norm_type='instance'):
+def get_norm_layer(norm_type='batch'):
     """Return a normalization layer
 
-    Parameters:
-        norm_type (str) -- the name of the normalization layer: batch | instance | none
-
     For BatchNorm, we use learnable affine parameters and track running statistics (mean/stddev).
-    For InstanceNorm, we do not use learnable affine parameters. We do not track running statistics.
     """
     if norm_type == 'batch':
         norm_layer = functools.partial(nn.BatchNorm2d, affine=True, track_running_stats=True)
-    elif norm_type == 'instance':
-        norm_layer = functools.partial(nn.InstanceNorm2d, affine=False, track_running_stats=False)
-    elif norm_type == 'none':
-        def norm_layer(x): return Identity()
     else:
         raise NotImplementedError('normalization layer [%s] is not found' % norm_type)
     return norm_layer
@@ -38,15 +30,6 @@ def get_norm_layer(norm_type='instance'):
 def get_scheduler(optimizer, opt):
     """Return a learning rate scheduler
 
-    Parameters:
-        optimizer          -- the optimizer of the network
-        opt (option class) -- stores all the experiment flags; needs to be a subclass of BaseOptions．　
-                              opt.lr_policy is the name of learning rate policy: linear | step | plateau | cosine
-
-    For 'linear', we keep the same learning rate for the first <opt.n_epochs> epochs
-    and linearly decay the rate to zero over the next <opt.n_epochs_decay> epochs.
-    For other schedulers (step, plateau, and cosine), we use the default PyTorch schedulers.
-    See https://pytorch.org/docs/stable/optim.html for more details.
     """
     if opt.lr_policy == 'linear':
         def lambda_rule(epoch):
@@ -63,11 +46,7 @@ def init_weights(net, init_type='normal', init_gain=0.02):
 
     Parameters:
         net (network)   -- network to be initialized
-        init_type (str) -- the name of an initialization method: normal | xavier | kaiming | orthogonal
         init_gain (float)    -- scaling factor for normal, xavier and orthogonal.
-
-    We use 'normal' in the original pix2pix and CycleGAN paper. But xavier and kaiming might
-    work better for some applications. Feel free to try yourself.
     """
     def init_func(m):  # define the initialization function
         classname = m.__class__.__name__
@@ -90,7 +69,6 @@ def init_net(net, init_type='normal', init_gain=0.02, gpu_ids=[]):
     """Initialize a network: 1. register CPU/GPU device (with multi-GPU support); 2. initialize the network weights
     Parameters:
         net (network)      -- the network to be initialized
-        init_type (str)    -- the name of an initialization method: normal | xavier | kaiming | orthogonal
         gain (float)       -- scaling factor for normal, xavier and orthogonal.
         gpu_ids (int list) -- which GPUs the network runs on: e.g., 0,1,2
 
@@ -111,8 +89,8 @@ def define_G(input_nc, output_nc, ngf, netG, norm='batch', use_dropout=False, in
         input_nc (int) -- the number of channels in input images
         output_nc (int) -- the number of channels in output images
         ngf (int) -- the number of filters in the last conv layer
-        netG (str) -- the architecture's name: resnet_9blocks | resnet_6blocks | unet_256 | unet_128
-        norm (str) -- the name of normalization layers used in the network: batch | instance | none
+        netG (str) -- the architecture's name: unet_256
+        norm (str) -- the name of normalization layers used in the network: batch
         use_dropout (bool) -- if use dropout layers.
         init_type (str)    -- the name of our initialization method.
         init_gain (float)  -- scaling factor for normal, xavier and orthogonal.
